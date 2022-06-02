@@ -2,7 +2,6 @@ import json
 import socket
 import threading
 
-
 class Servidor:
 
     def __init__(self, host, port):
