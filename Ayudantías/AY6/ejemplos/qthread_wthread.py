@@ -17,7 +17,6 @@ class ThreadBacan(QThread):
             self.actualizar_label_signal.emit()
             sleep(0.5)
 
-
 class VentanaConThread(QWidget):
     actualizar_label_signal = pyqtSignal()
 
@@ -30,7 +29,7 @@ class VentanaConThread(QWidget):
         self.layout_principal = QVBoxLayout(self)
 
         # Creamos nuestro thread y le entregamos la senal para actualizar el label
-        
+        self.thread_bacan = ThreadBacan(self.actualizar_label_signal)
 
         self.init_gui()
 
@@ -56,6 +55,9 @@ class VentanaConThread(QWidget):
 
     def iniciar_loop(self):
         #Completar
+        # Emitimos la senal 10 veces, con 0.5 segundos de espera entre emisiones.
+        self.thread_bacan.start()
+
         
 
 if __name__ == '__main__':

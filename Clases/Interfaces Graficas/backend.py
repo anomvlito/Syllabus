@@ -80,12 +80,23 @@ class LogInBackend:
 
     def __init__(self, recibir_login, responder_login):
         self.senal_responder_login = responder_login
+
+        recibir_login.connect(self.login)
         # Conectar la senal para recibir el login desde el front
 
     def login(self, nombre):
         # Responderle al front, con un diccionario de la forma:
-        # {"permiso": bool, "nombre": string}
-        pass
+        
+        usuarios_autorizados =  {"fabian", "profe", "cruz", "chinchilla"}
+        if nombre in usuarios_autorizados:
+            self.senal_responder_login(
+                {"permiso": True, "nombre": nombre}
+            )
+
+        else:
+            self.senal_responder_login(
+                {"permiso": True, "nombre": nombre}
+            )
 
 
 class Juego(QObject):

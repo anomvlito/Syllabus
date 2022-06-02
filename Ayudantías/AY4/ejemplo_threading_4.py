@@ -23,4 +23,11 @@ thread_contador_2.start()
 thread_contador_1.join()
 thread_contador_2.join()
 
+
+
 print("Valor del contador:", contador.valor)
+
+
+
+
+

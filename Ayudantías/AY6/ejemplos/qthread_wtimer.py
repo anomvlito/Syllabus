@@ -9,6 +9,8 @@ su utilidad general.
 """
 
 class VentanaConTimer(QWidget):
+
+    actualizar_label_signal =  pyqtSignal()
     def __init__(self):
         super().__init__()
         self.label_numero = QLabel("0", self)
@@ -38,6 +40,9 @@ class VentanaConTimer(QWidget):
 
         # Podemos dejar una prueba para ver si paramos el timer.
         # Idealmente, deberias implementar un timer personalizado que se preocupe de esto
+        if numero_actual == 10:
+            self.timer_epico.stop()
+
         
 
     def actualizar_boton(self):
@@ -47,8 +52,11 @@ class VentanaConTimer(QWidget):
     def iniciar_loop(self):
         # Los timers emiten una senal cada vez que pasa una cantidad de tiempo especificada
         # la cual puedes acceder para conectarla utilizando el atributo timeout.
-
+        self.timer_epico.timeout.connect(self.actualizar_label_signal())
         # Ojo: el tiempo se especifica en milisegundos!
+
+        self.timer_epico.setInterval(1000)
+        self.timer_epico.start()
         
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 import sys
 from time import sleep
+from tkinter import SEL
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton
 
@@ -14,6 +15,7 @@ class VentanaSinThread(QWidget):
         self.label_numero = QLabel("0", self)  # Muestra el numero que ira en aumento
         self.boton_numero = QPushButton("0", self)  # Muestra el numero que sube si lo apretamos
         # Inicia el loop 
+        self.boton_loop = QPushButton("Iniciar Loop", self)
         self.layout_principal = QVBoxLayout(self)  # Layout de la ventana principal
 
         self.init_gui()
@@ -24,9 +26,12 @@ class VentanaSinThread(QWidget):
         self.layout_principal.addStretch()
         self.layout_principal.addWidget(self.boton_numero)
         #Layout del boton_loop
+
         # Conectamos las senales
         self.boton_numero.clicked.connect(self.actualizar_boton)
         #Señal para iniciar el loop
+
+        self.boton_loop.clicked.connect(self.iniciar_loop)
         self.actualizar_label_signal.connect(self.actualizar_label)
 
         self.show()
@@ -43,7 +48,9 @@ class VentanaSinThread(QWidget):
 
     def iniciar_loop(self):
         # Emitimos la senal 10 veces, con 0.5 segundos de espera entre emisiones.
-        
+        for _ in range(10):
+            self.actualizar_label_signal.emit()
+
 if __name__ == '__main__':
     app = QApplication([])
     ventana = VentanaSinThread()
